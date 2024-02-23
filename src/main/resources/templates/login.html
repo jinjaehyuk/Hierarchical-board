@@ -8,19 +8,41 @@
 </head>
 <body style ="background-color:#E2E2E2">
 <div class="login-center">
-<div class="login-wrapper">
+<div class="sign-wrapper">
     <h2>Login</h2>
     <form method="post" action="/login" id="login-form">
-        <input type="text" name="userName" placeholder="Email">
-        <input type="password" name="userPassword" placeholder="Password">
+        <input type="text" name="email" placeholder="Email" th:value="${savedEmail}">
+        <input type="password" name="password" placeholder="Password">
+        <div th:if="${error} == true"  id="emailErr">
+            비밀번호나 아이디가 일치하지 않습니다. 다시확인해주세요.
+        </div>
         <label for="remember-check">
-            <input type="checkbox" id="remember-check">아이디 저장하기
-
+            <input type="checkbox" name = "remember-check" id="remember-check" th:checked="${rememberCheck}" value="false" onchange="updateRememberCheck(this)">아이디 저장하기
         </label>
         <input type="submit" value="Login">
     </form>
     <a href="/signup">회원가입</a>
 </div>
 </div>
+<script>
+window.onload = function() {
+        var rememberCheckbox = document.getElementById('remember-check');
+        updateRememberValue(rememberCheckbox);
+    };
+
+    function updateRememberValue(checkbox) {
+        if (checkbox.checked) {
+            checkbox.setAttribute('checked', 'checked');
+            checkbox.value = 'true';
+        } else {
+            checkbox.removeAttribute('checked');
+            checkbox.value = 'false';
+        }
+    }
+
+    function updateRememberCheck(checkbox) {
+        updateRememberValue(checkbox);
+    }
+</script>
 </body>
 </html>
