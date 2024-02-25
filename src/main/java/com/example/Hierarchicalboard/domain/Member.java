@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -29,4 +31,6 @@ public class Member {
 
     @CreationTimestamp
     private LocalDateTime regdate;
+
+
 }

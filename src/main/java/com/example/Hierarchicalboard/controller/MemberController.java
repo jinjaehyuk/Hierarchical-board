@@ -6,11 +6,13 @@ import com.example.Hierarchicalboard.dto.MemberInfo;
 import com.example.Hierarchicalboard.repository.MemberRepository;
 import com.example.Hierarchicalboard.service.MemberService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +23,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MemberController {
     private final MemberService memberService;
     @GetMapping("/signup")
-    public String signUp(){
+    public String signUp( @RequestParam(required = false) boolean error, Model model){
+        model.addAttribute("error",error);
         return "/member/signup";
     }
 
     @PostMapping("/join")
-    public String join(MemberDto memberDto){
-        memberService.addMember(memberDto);
-        return "/";
+    public String join(HttpServletRequest request, MemberDto memberDto, Model model){
+        Member member = memberService.addMember(memberDto);
+        if(member == null){
+            return "redirect:signup?error=true";
+        }else{
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/login")
@@ -60,6 +67,6 @@ public class MemberController {
         }catch(Exception ex){
             return "redirect:?error=true";
         }
-        return "/board/list";
+        return "redirect:list";
     }
 }

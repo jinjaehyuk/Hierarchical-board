@@ -15,6 +15,10 @@
             <input type="text" name="email" placeholder="이메일">
             <input type="password" name="password" placeholder="비밀번호">
             <input type="password" name="confirmpassword" placeholder="비밀번호 확인">
+            <div th:if="${error} == true"  id="emailErr">
+                이메일이 존재합니다. 다시 확인해주세요.
+            </div>
+
             <input type="submit" value="가입하기">
         </form>
 
