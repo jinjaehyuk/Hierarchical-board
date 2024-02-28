@@ -8,6 +8,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity //Database Table과 매핑하는 객체.
 //@Table(name="user3") //Database Table 이름이 user3와 User라는 객체가 매핑.
@@ -18,8 +19,12 @@ public class Board {
 
     @Id //이 필드가 Table의 PK
     @Column(name="board_id") //
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // userId는 자동으로 생성되도록 함. 1,2,3,4... autoincrement
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer boardId;
+
+    private int p_id;
+
+    private int depth;
 
     @Column(length = 100)
     private String Title;
