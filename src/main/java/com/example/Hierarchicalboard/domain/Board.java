@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor // 기본 생성자가 필요
 @Setter
 @Getter
+@ToString
 public class Board {
 
     @Id //이 필드가 Table의 PK

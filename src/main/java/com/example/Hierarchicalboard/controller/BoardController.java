@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,12 +26,27 @@ public class BoardController {
     private final FileService fileService;
 
     @GetMapping("/list")
-    public String list(HttpSession session, Model model){
+    public String list(@RequestParam(name="page",defaultValue = "0") int page, HttpSession session, Model model){
         MemberInfo memberInfo = (MemberInfo)session.getAttribute("memberInfo");
         if(memberInfo == null){
             return "redirect:/";
         }
+        long totalCount = boardService.getTotalCount();
+        List<Board> boards = boardService.showAll(page);
+        long pageCount = totalCount/ 10;
+        if(totalCount % 10 > 0 ){
+            pageCount++;
+        }
+        int currentPage = page;
+
+//        for(Board board : boards){
+//            board.setTitle(board.getTitle().replace("\t", "&nbsp;"));
+//        }
         model.addAttribute("memberInfo",memberInfo);
+        model.addAttribute("boards",boards);
+        model.addAttribute("pageCount",pageCount);
+        model.addAttribute("currentPage",currentPage);
+
         return "/board/list";
     }
 
