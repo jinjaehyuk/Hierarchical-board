@@ -26,11 +26,13 @@ public class BoardController {
     private final FileService fileService;
 
     @GetMapping("/list")
-    public String list(@RequestParam(name="page",defaultValue = "0") int page, HttpSession session, Model model){
+    public String list(@RequestParam(name="page",defaultValue = "1") int page, HttpSession session, Model model){
         MemberInfo memberInfo = (MemberInfo)session.getAttribute("memberInfo");
         if(memberInfo == null){
             return "redirect:/";
         }
+        page = (page == 0) ? 0 : (page - 1);
+
         long totalCount = boardService.getTotalCount();
         List<Board> boards = boardService.showAll(page);
         long pageCount = totalCount/ 10;

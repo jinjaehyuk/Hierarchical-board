@@ -34,8 +34,9 @@
                 <tr>
                     <th scope="col" class="th-num">번호</th>
                     <th scope="col" class="th-title">제목</th>
-                    <th scope="col" class="th-viewcnt">조회수</th>
+                    <th scope="col" class="th-name">작성자</th>
                     <th scope="col" class="th-date">등록일</th>
+                    <th scope="col" class="th-viewcnt">조회수</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,21 +45,22 @@
                     <th>
                         <a th:text="${board.title.replace(' ', '&nbsp;')}"></a>
                     </th>
-                    <td th:text="${board.regdate}"></td>
                     <td th:text="${board.member.name}"></td>
+                    <td th:text="${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td th:text="${board.viewCnt}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="login-info">
-        <div class="container">
+            <div style="text-align:center">
+                <span th:each="n : ${#numbers.sequence(1, pageCount)}"><a th:href="@{/list(page=${n})}" th:text="${n}"></a>&nbsp;</span>
+            </div>
+            <div class="container">
             <span class="login-info_logout">
             <a href="/writeForm">글쓰기</a>
-          </span>
-        </div>
-        <div>
-            <span th:each="n : ${#numbers.sequence(1, pageCount)}"><a th:href="@{/(page=${n})}" th:text="${n}"></a></span>
+            </span>
+            </div>
         </div>
     </div>
 </section>
