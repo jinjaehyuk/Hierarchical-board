@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -101,6 +103,23 @@ public class BoardController {
             e.printStackTrace();
         }
 
-        return "redirect:/list"; //수정해야함.
+        return "redirect:/list";
+    }
+
+    @GetMapping("/view")
+    public String view(@RequestParam("no") int boardId, HttpSession session, Model model){
+        MemberInfo memberInfo = (MemberInfo)session.getAttribute("memberInfo");
+        if(memberInfo == null){
+            return "redirect:/";
+        }
+        Board board = boardService.getBoard(boardId);
+        List<com.example.Hierarchicalboard.domain.File> files = fileService.getFile(board);
+        for(com.example.Hierarchicalboard.domain.File file : files){
+            System.out.println(file.toString());
+        }
+        model.addAttribute("board", board);
+        model.addAttribute("files",files);
+
+        return "/board/view";
     }
 }

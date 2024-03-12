@@ -1,13 +1,12 @@
 package com.example.Hierarchicalboard.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
+@ToString
+@NoArgsConstructor
 public class File {
 
         /*

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FileService {
@@ -20,18 +22,10 @@ public class FileService {
         return fileRepository.save(fileDto.toEntity()).getId();
     }
 
-    @Transactional
-    public FileDto getFile(Long id,int boardId){
-        File file = fileRepository.findById(id).get();
-        Board board = boardRepository.findById(boardId).get();
-        FileDto fileDto = FileDto.builder()
-                .id(id)
-                .board(board)
-                .origFilename(file.getOrigFilename())
-                .filename(file.getFilename())
-                .filePath(file.getFilePath())
-                .build();
-        return fileDto;
+    @Transactional(readOnly = true)
+    public List<File> getFile(Board board){
+        List<File> files = fileRepository.findByBoard(board);
+        return files;
     }
 
 }

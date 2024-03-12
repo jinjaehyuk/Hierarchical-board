@@ -43,4 +43,10 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page,10);
         return boardRepository.findAllBoard(pageable).getContent();
     }
+
+    @Transactional(readOnly = true)
+    public Board getBoard(int boardId) {
+        return boardRepository.findById(boardId).orElseThrow();
+
+    }
 }

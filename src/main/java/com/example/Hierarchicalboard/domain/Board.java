@@ -21,7 +21,7 @@ public class Board {
     @Id //이 필드가 Table의 PK
     @Column(name="board_id") //
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer boardId;
+    private int boardId;
 
     private int p_id;
 

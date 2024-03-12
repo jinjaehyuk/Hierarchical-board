@@ -43,7 +43,7 @@
                 <tr th:each="board : ${boards}">
                     <td th:text="${board.boardId}"></td>
                     <th>
-                        <a th:text="${board.title.replace(' ', '&nbsp;')}"></a>
+                        <a th:href="@{/view(no=${board.boardId})}" th:text="${board.title.replace(' ', '&nbsp;')}"></a>
                     </th>
                     <td th:text="${board.member.name}"></td>
                     <td th:text="${#temporals.format(board.regdate, 'yyyy-MM-dd HH:mm')}"></td>
