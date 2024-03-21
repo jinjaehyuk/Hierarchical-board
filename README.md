@@ -23,4 +23,4 @@
 
 ## 방식
 1. SpringBoot + Thymeleaf
-2. SpringBoot + vue.js
+2. SpringBoot + vue.js.
